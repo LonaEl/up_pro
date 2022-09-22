@@ -3,7 +3,7 @@ import React, {useState, useEffect, Fragment} from "react";
 import { useParams } from "react-router-dom";
 
 const PasswordReset = () => {
-    const [valid, setValidUrl] = useState(false);
+    const [validUrl, setValidUrl] = useState(false);
     const [password, setPassword] = useState("");
     const param = useParams();
     const url = `http://localhost:5000/api/password-reset/${param.id}/${param.token}`
@@ -11,7 +11,7 @@ const PasswordReset = () => {
   useEffect(() => {
     const verifyUrl = async() => {
         try {
-            await Axios.get(url);
+            await axios.get(url);
             setValidUrl(true)
         } catch (error) {
             setValidUrl(false)
@@ -40,7 +40,7 @@ const PasswordReset = () => {
                     type="password"
                     placeholder="Enter password"
                     name="name"
-                    value={value}
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </form>
@@ -51,3 +51,5 @@ const PasswordReset = () => {
        </Fragment>
     )
 };
+
+export default PasswordReset;

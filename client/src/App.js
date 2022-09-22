@@ -35,7 +35,7 @@ const App = () => {
           <Route path="/claim" exact component={Claim} />
           <Route path="/termsandconditions" exact component={Terms} />
           <Route path="/forgot-password" exact component={ForgotPassword} />
-          <Route path="/forgot-reset/:id/:token" exact component={ PasswordReset } />
+          <Route path="/reset-password/:id/:token" exact component={ PasswordReset } />
         </Switch>
       </Container>
     </BrowserRouter>
