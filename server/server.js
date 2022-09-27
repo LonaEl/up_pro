@@ -1,4 +1,3 @@
-
 import express from 'express';
 const app = express();
 import bodyParser from 'body-parser';
@@ -28,13 +27,13 @@ app.use("/api/auth", authRoute);
 app.use("/api/private", privateRoute);
 
 const CONNECTION_URL = encodeURI(process.env.DATABASE_CONNECTION);
-const PORT = process.env.PORT|| 5000;
+//const PORT = process.env.PORT|| 5000;
 
 
 
 //import errorHandler from "./middleware/error.js";
 
-app.use(express.json());
+//app.use(express.json());
 
 app.get("/", (req, res, next) => {
   res.send("Api running");
@@ -42,11 +41,11 @@ app.get("/", (req, res, next) => {
 
 // Error Handler Middleware
 //app.use(errorHandler);
-
+/* 
 const server = app.listen(PORT, () =>
   console.log(`Sever running on port ${PORT}`)
 );
-
+ */
 process.on("unhandledRejection", (err, promise) => {
   console.log(`Logged Error: ${err.message}`);
   server.close(() => process.exit(1));
@@ -57,4 +56,43 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
   .then(() => app.listen(PORT, () => console.log(`Server is active on port: http://localhost:${PORT}`)))
   .catch((error) => console.log(`${error} did not connect`));
  */
-mongoose.set('useFindAndModify', false);
+//mongoose.set('useFindAndModify', false);
+
+//import dotenv from "dotenv";
+//dotenv.config();
+
+//config({ path: "./config.env" });
+//import express from "express";
+//const app = express();
+import connectDB from "./config/db.js";
+import errorHandler from "./middleware/error.js";
+
+connectDB();
+
+app.use(express.json());
+
+app.get("/", (req, res, next) => {
+  res.send("Api running");
+});
+
+/* import authRoute from "./routes/auth.js";
+import privateRoute from "./routes/private.js" */
+
+
+// Connecting Routes
+app.use("/api/auth", authRoute);
+app.use("/api/private", privateRoute);
+
+// Error Handler Middleware
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(PORT, () =>
+  console.log(`Sever running on port ${PORT}`)
+);
+
+process.on("unhandledRejection", (err, promise) => {
+  console.log(`Logged Error: ${err.message}`);
+  server.close(() => process.exit(1));
+});
