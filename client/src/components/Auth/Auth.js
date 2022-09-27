@@ -60,13 +60,13 @@ const SignUp = () => {
           </Grid>
             {!isSignup && (
             <>
-            <Link to="/forgot-password"> <p>Forgot Password?</p> </Link>
+            <Link to="/forgotpassword"> <p>Forgot Password?</p> </Link>
             </>
            )} 
         <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             { isSignup ? 'Sign Up' : 'Sign In' }
           </Button>
-        <Grid container justify="flex-end">
+        <Grid container justifyContent="flex-end">
             <Grid item>
          <Button onClick={switchMode}>
                 { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }

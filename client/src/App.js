@@ -8,18 +8,16 @@ import Auth from './components/Auth/Auth';
 import CreatorOrTag from './components/CreatorOrTag/CreatorOrTag';
 import Claim from './components/Claim/Claim';
 import Terms from './components/Terms/Terms';
-import ForgotPassword from './components/ForgotPassword/ForgotPassword';
-import PasswordReset from './components/PasswordRest/PasswordReset';
+import LoginScreen from './components/screens/LoginScreen';
+import RegisterScreen from './components/screens/RegisterScreen';
+import ForgotPasswordScreen from './components/screens/ForgotPasswordScree';
+import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
 
 
 
-/* import { useDispatch } from 'react-redux';
-to dispatch an action
- */
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
-  //const dispatch = useDispatch();
 
   return (
     <BrowserRouter>
@@ -34,9 +32,11 @@ const App = () => {
           <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
           <Route path="/claim" exact component={Claim} />
           <Route path="/termsandconditions" exact component={Terms} />
-          <Route path="/forgot-password" exact component={ForgotPassword} />
-          <Route path="/reset-password/:id/:token" exact component={ PasswordReset } />
-        </Switch>
+          <Route exact path="/login" component={ LoginScreen } />
+          <Route exact path="/register" component={RegisterScreen} />
+          <Route exact path="/forgotpassword"component={ForgotPasswordScreen} />
+          <Route exact path="/passwordreset/:resetToken" component={ResetPasswordScreen} />
+       </Switch>
       </Container>
     </BrowserRouter>
   );
