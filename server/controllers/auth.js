@@ -14,9 +14,9 @@ export const login = async (req, res, next) => {
 
   try {
     // Check that user exists by email
-    const user = await User.findOne({ email }).select("+password");
+    const result = await User.findOne({ email }).select("+password");
 
-    if (!user) {
+    if (!result) {
       return next(new ErrorResponse("Invalid credentials", 401));
     }
 
@@ -27,7 +27,7 @@ export const login = async (req, res, next) => {
       return next(new ErrorResponse("Invalid credentials", 401));
     }
 
-    sendToken(user, 200, res);
+    sendToken(result, 200, res);
   } catch (err) {
     next(err);
   }
@@ -35,18 +35,17 @@ export const login = async (req, res, next) => {
 
 // @desc    Register user
 export const register = async (req, res, next) => {
-  const {lastname,firstname, username, email, password } = req.body;
+  const {lastname, firstname, username, email, password } = req.body;
 
   try {
-    const user = await User.create({
-      lastname,
-      firstname,
+    const result = await User.create({
+      name: `${firstname} ${lastname}`,
       username,
       email,
       password,
     });
 
-    sendToken(user, 200, res);
+    sendToken(result, 200, res);
   } catch (err) {
     next(err);
   }

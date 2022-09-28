@@ -17,11 +17,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
-  lastname: {
-    type: String,
-    required: [true, "Please provide last name"],
-  },
-  firstname: {
+ name: {
     type: String,
     required: [true, "Please provide first name"],
   }, 
