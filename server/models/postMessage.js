@@ -19,3 +19,6 @@ const postSchema = mongoose.Schema({
 var PostMessage = mongoose.model('PostMessage', postSchema);
 
 export default PostMessage;
+
+/* mongodb will create a "postmessages" collection,
+as per the rule of plural, lowercased version of your model name */

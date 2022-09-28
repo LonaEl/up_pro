@@ -29,10 +29,9 @@ const App = () => {
           <Route path="/posts/search" exact component={Home} />
           <Route path="/posts/:id" exact component={PostDetails} />
           <Route path={['/creators/:name', '/tags/:name']} component={CreatorOrTag} />
-          <Route path="/auth" exact component={() => (!user ? <Auth /> : <Redirect to="/posts" />)} />
+          <Route path="/login" exact component={() => (!user ? <LoginScreen /> : <Redirect to="/posts" />)} />
           <Route path="/claim" exact component={Claim} />
           <Route path="/termsandconditions" exact component={Terms} />
-          <Route exact path="/login" component={ LoginScreen } />
           <Route exact path="/register" component={RegisterScreen} />
           <Route exact path="/forgotpassword"component={ForgotPasswordScreen} />
           <Route exact path="/passwordreset/:resetToken" component={ResetPasswordScreen} />

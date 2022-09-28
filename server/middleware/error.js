@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message;
 
   if (err.code === 11000) {
-    const message = `Email already exists, please login or use another email`;
+    const message = `Email address already exists, please login or use another email address`;
     error = new ErrorResponse(message, 400);
   }
 

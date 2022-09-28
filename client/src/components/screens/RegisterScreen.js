@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "./RegisterScreen.css";
 
 const RegisterScreen = ({ history }) => {
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +33,8 @@ const RegisterScreen = ({ history }) => {
     try {
       const { data } = await axios.post(
         "/api/auth/register",
-        {
+        { lastname,
+          firstname,
           username,
           email,
           password,
@@ -41,7 +44,9 @@ const RegisterScreen = ({ history }) => {
 
       localStorage.setItem("authToken", data.token);
 
-      history.push("/");
+      localStorage.setItem('profile', data.username);
+
+      history.push("/posts");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -56,6 +61,29 @@ const RegisterScreen = ({ history }) => {
         <h3 className="register-screen__title">Register</h3>
         {error && <span className="error-message">{error}</span>}
         <div className="form-group">
+
+        <label htmlFor="name">Last Name:</label>
+          <input
+            type="text"
+            name="lastname"
+            required
+            id="lastname"
+            placeholder="Enter last name"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+          />
+             <label htmlFor="name">First Name:</label>
+          <input
+            type="text"
+            name="firstname"
+            required
+            id="firstname"
+            placeholder="Enter first name"
+            value={firstname}
+            onChange={(e) => setFirstname(e.target.value)}
+          />
+
+
           <label htmlFor="name">Username:</label>
           <input
             type="text"
@@ -65,6 +93,8 @@ const RegisterScreen = ({ history }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+
+
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>

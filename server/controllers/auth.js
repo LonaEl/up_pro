@@ -35,10 +35,12 @@ export const login = async (req, res, next) => {
 
 // @desc    Register user
 export const register = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const {lastname,firstname, username, email, password } = req.body;
 
   try {
     const user = await User.create({
+      lastname,
+      firstname,
       username,
       email,
       password,
@@ -59,7 +61,7 @@ export const forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return next(new ErrorResponse("No email could not be sent", 404));
+      return next(new ErrorResponse("Email address not found. Please try another email address or register.", 404));
     }
 
     // Reset Token Gen and add to database hashed (private) version of token
