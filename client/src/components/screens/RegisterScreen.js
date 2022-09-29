@@ -44,7 +44,7 @@ const RegisterScreen = ({ history }) => {
  */
 
       try {
-        const data = await axios.post(
+        const { data } = await axios.post(
           "/api/auth/register",
           { name: `${firstname} ${lastname}`,
             username,
@@ -56,8 +56,8 @@ const RegisterScreen = ({ history }) => {
 
 
 
-      localStorage.setItem("authToken", data.token);
-
+     /*  localStorage.setItem("authToken", data.token);
+ */
       localStorage.setItem('profile', JSON.stringify(data))
 
       history.push("/posts");

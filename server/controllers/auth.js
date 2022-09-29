@@ -138,5 +138,5 @@ export const resetPassword = async (req, res, next) => {
 
 export const sendToken = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
-  res.status(statusCode).json({ sucess: true, token });
+  res.status(statusCode).json({ sucess: true, token, });
 };

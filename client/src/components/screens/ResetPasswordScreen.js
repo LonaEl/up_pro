@@ -13,11 +13,11 @@ const ResetPasswordScreen = ({ history, match }) => {
   const resetPasswordHandler = async (e) => {
     e.preventDefault();
 
-    const config = {
+   /*  const config = {
       header: {
         "Content-Type": "application/json",
       },
-    };
+    }; */
 
     if (password !== confirmPassword) {
       setPassword("");
@@ -34,7 +34,7 @@ const ResetPasswordScreen = ({ history, match }) => {
         {
           password,
         },
-        config
+       /*  config */
       );
 
       console.log(data);
