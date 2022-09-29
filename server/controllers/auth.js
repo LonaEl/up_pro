@@ -45,11 +45,21 @@ export const register = async (req, res, next) => {
       password,
     });
 
-    sendToken(result, 200, res);
+    
+     /*  const token = user.getSignedJwtToken(); */
+      res.status(201).json({ result});
+    
+    
+
+/*     sendToken(result, 200, res); */
   } catch (err) {
     next(err);
   }
 };
+
+
+
+
 
 // @desc    Forgot Password Initialization
 export const forgotPassword = async (req, res, next) => {
@@ -135,8 +145,9 @@ export const resetPassword = async (req, res, next) => {
     next(err);
   }
 };
-
+/* 
 export const sendToken = (user, statusCode, res) => {
   const token = user.getSignedJwtToken();
-  res.status(statusCode).json({ sucess: true, token, });
+  res.status(statusCode).json({ sucess: true, token, result});
 };
+ */
