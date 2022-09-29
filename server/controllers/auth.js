@@ -38,7 +38,7 @@ export const register = async (req, res, next) => {
   const {lastname, firstname, username, email, password } = req.body;
 
   try {
-    const result = await User.create({
+    const user = await User.create({
       name: `${firstname} ${lastname}`,
       username,
       email,
@@ -47,7 +47,7 @@ export const register = async (req, res, next) => {
 
     
      /*  const token = user.getSignedJwtToken(); */
-      res.status(201).json({ result});
+      res.status(201).json({ user});
     
     
 

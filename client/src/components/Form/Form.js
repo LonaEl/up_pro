@@ -32,10 +32,10 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, history));
+      dispatch(createPost({ ...postData, name: user?.user?.name }, history));
       clear();
     } else {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+      dispatch(updatePost(currentId, { ...postData, name: user?.user?.name }));
       clear();
     }
   };
@@ -44,7 +44,7 @@ const Form = ({ currentId, setCurrentId }) => {
     setIstrue(e.target.value)
   }
 
-  if (!user?.result?.name) {
+  if (!user?.user?.name) {
     return (
       <Paper className={classes.paper} elevation={6}>
         <Typography variant="h6" align="center">
