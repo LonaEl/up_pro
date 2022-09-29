@@ -45,13 +45,10 @@ export const register = async (req, res, next) => {
       password,
     });
 
+     const token = user.getSignedJwtToken(); 
+      res.status(201).json({ user, token});
     
-     /*  const token = user.getSignedJwtToken(); */
-      res.status(201).json({ user});
-    
-    
-
-/*     sendToken(result, 200, res); */
+    /*     sendToken(result, 200, res); */
   } catch (err) {
     next(err);
   }
