@@ -10,7 +10,7 @@ const auth = async (req, res, next) => {
     let decodedData;
 
     if (token && isCustomAuth) {      
-      decodedData = jwt.verify(token, secret);
+      decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
       req.userId = decodedData?.id;
     } else {
@@ -27,10 +27,12 @@ const auth = async (req, res, next) => {
 
 export default auth;
 
-import ErrorResponse from "../utils/errorResponse.js";
+/* import ErrorResponse from "../utils/errorResponse.js";
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 
-export const protect = async (req, res, next) => {
+const auth = async (req, res, next) => {
+  
   let token;
 
   if (
@@ -60,3 +62,5 @@ export const protect = async (req, res, next) => {
     return next(new ErrorResponse("Not authorized to access this router", 401));
   }
 };
+
+export default auth; */

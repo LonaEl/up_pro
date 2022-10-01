@@ -8,10 +8,10 @@ import dotenv from "dotenv"
 dotenv.config();
 import errorHandler from "./middleware/error.js";
 import postRoutes from './routes/posts.js';
-import userRouter from "./routes/user.js";
+//import userRouter from "./routes/user.js";
 import claimRouter from "./routes/claim.js";
 import authRoute from "./routes/auth.js";
-import privateRoute from "./routes/private.js"
+//import privateRoute from "./routes/private.js"
 
 app.use(express.json({ limit: '30mb', extended: true }))
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
@@ -21,10 +21,10 @@ app.use(cors());
 //first parameter is the starting path in the backend e.g localhost:5000/posts
 //Connecting routes
 app.use('/posts', postRoutes);
-app.use("/user", userRouter);
+//app.use("/user", userRouter);
 app.use("/claim", claimRouter);
 app.use("/api/auth", authRoute);
-app.use("/api/private", privateRoute);
+//app.use("/api/private", privateRoute);
 
 const CONNECTION_URL = encodeURI(process.env.DATABASE_CONNECTION);
 

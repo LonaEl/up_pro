@@ -2,6 +2,8 @@ import crypto from "crypto";
 import ErrorResponse from "../utils/errorResponse.js";
 import User from "../models/User.js" ;
 import sendEmail from "../utils/sendEmail.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // @desc    Login user
 export const login = async (req, res, next) => {
@@ -21,7 +23,7 @@ export const login = async (req, res, next) => {
     }
 
     // Check that password match
-    const isMatch = await user.matchPassword(password);
+    const isMatch = await User.matchPassword(password);
 
     if (!isMatch) {
       return next(new ErrorResponse("Invalid credentials", 401));
@@ -35,20 +37,20 @@ export const login = async (req, res, next) => {
 
 // @desc    Register user
 export const register = async (req, res, next) => {
-  const {lastname, firstname, username, email, password } = req.body;
+  const {username, email, password, firstname, lastname } = req.body;
 
   try {
-    const user = await User.create({
-      name: `${firstname} ${lastname}`,
-      username,
-      email,
-      password,
-    });
 
-     const token = user.getSignedJwtToken(); 
-      res.status(201).json({ user, token});
+    const oldUser = await User.findOne({ email });
+    if (oldUser) return res.status(400).json({ message: "User already exists" });
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const result = await User.create({ username, email, password: hashedPassword, name: `${firstname} ${lastname}` });
+    const token = jwt.sign( { email: result.email, id: result._id },process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
+
+      res.status(201).json({result, token});
     
-    /*     sendToken(result, 200, res); */
+  
   } catch (err) {
     next(err);
   }
