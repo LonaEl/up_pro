@@ -56,12 +56,12 @@ import connectDB from "./config/db.js";
 
 connectDB();
 
-app.use(express.json());
+/* app.use(express.json());
 
 app.get("/", (req, res, next) => {
   res.send("Api running");
 });
-
+ */
 
 app.use(errorHandler);
 

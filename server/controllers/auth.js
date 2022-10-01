@@ -2,7 +2,7 @@ import crypto from "crypto";
 import ErrorResponse from "../utils/errorResponse.js";
 import User from "../models/User.js" ;
 import sendEmail from "../utils/sendEmail.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 // @desc    Login user
@@ -16,11 +16,12 @@ export const login = async (req, res, next) => {
 
   try {
     
-    const oldUser = await User.findOne({ email });
+    const oldUser = await User.findOne({ email }).select("+password");
 
     if (!oldUser) {
       return next(new ErrorResponse("incorrect password or email address", 401));
-    }
+    };
+    console.log(oldUser);
 
    const isMatch = await bcrypt.compare(password, oldUser.password )
     if (!isMatch) {
