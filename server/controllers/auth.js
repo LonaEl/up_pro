@@ -21,7 +21,7 @@ export const login = async (req, res, next) => {
     if (!oldUser) {
       return next(new ErrorResponse("incorrect password or email address", 401));
     };
-    console.log(oldUser);
+  //  console.log(oldUser);
 
    const isMatch = await bcrypt.compare(password, oldUser.password )
     if (!isMatch) {
@@ -30,7 +30,7 @@ export const login = async (req, res, next) => {
     
     const token = jwt.sign( { email: oldUser.email, id: oldUser._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
 
-      res.status(201).json({oldUser, token});
+      res.status(201).json({result: oldUser, token});
     
  } catch (err) {
     next(err);
