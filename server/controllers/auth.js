@@ -15,22 +15,22 @@ export const login = async (req, res, next) => {
   }
 
   try {
-    // Check that user exists by email
-    const result = await User.findOne({ email }).select("+password");
+    
+    const oldUser = await User.findOne({ email });
 
-    if (!result) {
+    if (!oldUser) {
       return next(new ErrorResponse("incorrect password or email address", 401));
     }
 
-    // Check that password match
-    isMatch = await bcrypt.compare(password, result.password )
-    /* const isMatch = await User.matchPassword(password);
- */
+   const isMatch = await bcrypt.compare(password, oldUser.password )
     if (!isMatch) {
       return next(new ErrorResponse("Incorrect password or email address", 401));
     }
-    const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
-    res.status(200).json(result, token)
+    
+    const token = jwt.sign( { email: oldUser.email, id: oldUser._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
+
+      res.status(201).json({oldUser, token});
+    
  } catch (err) {
     next(err);
   }
