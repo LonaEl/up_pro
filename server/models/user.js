@@ -13,13 +13,17 @@ export default mongoose.model("User", userSchema);
  */
 import crypto from "crypto";
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+//import bcrypt from "bcryptjs";
+//import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
- name: {
+  firstname: {
     type: String,
     required: [true, "Please provide first name"],
+  }, 
+ lastname: {
+    type: String,
+    required: [true, "Please provide last name"],
   }, 
   username: {
     type: String,

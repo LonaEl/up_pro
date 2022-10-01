@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+/* import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import UserModal from "../models/User.js";
@@ -45,4 +45,4 @@ export const signup = async (req, res) => {
     
     console.log(error);
   }
-};
+}; */

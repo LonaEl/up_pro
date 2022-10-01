@@ -46,7 +46,8 @@ const RegisterScreen = ({ history }) => {
       try {
         const { data } = await axios.post(
           "/api/auth/register",
-          { name: `${firstname} ${lastname}`,
+          { lastname,
+            firstname,
             username,
             email,
             password

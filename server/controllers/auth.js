@@ -19,18 +19,19 @@ export const login = async (req, res, next) => {
     const result = await User.findOne({ email }).select("+password");
 
     if (!result) {
-      return next(new ErrorResponse("Invalid credentials", 401));
+      return next(new ErrorResponse("incorrect password or email address", 401));
     }
 
     // Check that password match
-    const isMatch = await User.matchPassword(password);
-
+    isMatch = await bcrypt.compare(password, result.password )
+    /* const isMatch = await User.matchPassword(password);
+ */
     if (!isMatch) {
-      return next(new ErrorResponse("Invalid credentials", 401));
+      return next(new ErrorResponse("Incorrect password or email address", 401));
     }
-
-    sendToken(result, 200, res);
-  } catch (err) {
+    const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
+    res.status(200).json(result, token)
+ } catch (err) {
     next(err);
   }
 };
@@ -45,8 +46,8 @@ export const register = async (req, res, next) => {
     if (oldUser) return res.status(400).json({ message: "User already exists" });
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const result = await User.create({ username, email, password: hashedPassword, name: `${firstname} ${lastname}` });
-    const token = jwt.sign( { email: result.email, id: result._id },process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
+    const result = await User.create({ username, email, password: hashedPassword, firstname, lastname });
+    const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
 
       res.status(201).json({result, token});
     
