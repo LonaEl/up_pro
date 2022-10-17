@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, Box, Checkbox} from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 import { createPost, updatePost } from '../../actions/posts';
@@ -14,9 +19,9 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const { classes } = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const clear = () => {
     setCurrentId(0);
@@ -32,7 +37,7 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.username }, history));
+      dispatch(createPost({ ...postData, name: user?.result?.username }, navigate));
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.username }));
@@ -48,7 +53,7 @@ const Form = ({ currentId, setCurrentId }) => {
     return (
       <Paper className={classes.paper} elevation={6}>
         <Typography variant="h6" align="center">
-          Please Sign In to create your own memories and like other's memories.
+          Sign in to upload
         </Typography>
       </Paper>
     );

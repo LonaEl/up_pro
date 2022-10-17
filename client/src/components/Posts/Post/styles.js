@@ -1,6 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+/* import { makeStyles } from '@material-ui/core/styles'; */
 
-export default makeStyles({
+import { makeStyles } from 'tss-react/mui';
+
+const useStyles = makeStyles()({
   media: {
     height: 0,
     paddingTop: '50%',
@@ -54,3 +56,4 @@ export default makeStyles({
     textAlign: 'initial',
   },
 });
+export default useStyles;

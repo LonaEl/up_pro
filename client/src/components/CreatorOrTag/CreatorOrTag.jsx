@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Typography, CircularProgress, Grid, Divider } from '@material-ui/core';
+import  Typography from '@mui/material/Typography';
+import  CircularProgress from '@mui/material/CircularProgress';
+import  Grid  from '@mui/material/Grid';
+import Divider  from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Post from '../Posts/Post/Post';

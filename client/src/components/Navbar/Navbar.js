@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import AppBar  from '@mui/material/AppBar';
+import Typography from '@mui/material/Typography';
+import Toolbar  from '@mui/material/Toolbar';
+import Avatar from '@mui/material/Avatar';
+import Button  from '@mui/material/Button';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 
@@ -11,13 +15,13 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
   const location = useLocation();
-  const history = useHistory();
-  const classes = useStyles();
+  const navigate = useNavigate();
+  const { classes }  = useStyles();
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
 
-    history.push('/login');
+    navigate('/login');
 
     setUser(null);
   };
@@ -47,7 +51,7 @@ const Navbar = () => {
             <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
           </div>
         ) : (
-          <Button component={Link} to="/login" variant="contained" color="primary">Login</Button>
+          <Button component={Link} to="/login" variant="contained" color="primary">Login or sign in </Button>
         )}
       </Toolbar>
     </AppBar>

@@ -1,8 +1,16 @@
 import React, { useState} from 'react';
-import { Container, Grow, Grid, AppBar, TextField, Button, Paper } from '@material-ui/core';
+import Container from '@mui/material/Container';
+import Grow from '@mui/material/Grow';
+import Grid from '@mui/material/Grid';
+import AppBar from '@mui/material/AppBar';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import ChipInput from 'material-ui-chip-input';
+import { useNavigate, useLocation } from 'react-router-dom';
+/* import ChipInput from 'material-ui-chip-input'; */
+
+import Chip from '@mui/material/Chip';
 
 import { getPostsBySearch } from '../../actions/posts';
 
@@ -15,7 +23,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 const Home = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const query = useQuery();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
@@ -25,14 +33,14 @@ const Home = () => {
 
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
     } else {
-      history.push('/');
+      navigate('/');
     }
   };
 /* 
@@ -69,7 +77,7 @@ const Home = () => {
               value={search} 
               onChange={(e) => setSearch(e.target.value)} />
               
-              <ChipInput
+              <Chip
                 style={{ margin: '10px 0' }}
                 value={tags}
                 onAdd={(chip) => handleAddChip(chip)}

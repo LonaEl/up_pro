@@ -1,6 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+/* import { makeStyles } from '@material-ui/core/styles'; */
+import { makeStyles } from 'tss-react/mui';
 
-export default makeStyles((theme) => ({
+const useStyles = makeStyles() ((theme) => ({
   media: {
     borderRadius: '20px',
     objectFit: 'cover',
@@ -51,3 +52,5 @@ export default makeStyles((theme) => ({
     marginRight: '30px',
   },
 }));
+
+export default useStyles;

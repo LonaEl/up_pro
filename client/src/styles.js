@@ -1,6 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+/* import { makeStyles } from '@material-ui/core/styles'; */
 
-export default makeStyles((theme) => ({
+import { makeStyles } from 'tss-react/mui';
+
+const useStyles = makeStyles()((theme) => ({
   [theme.breakpoints.down('sm')]: {
     mainContainer: {
       flexDirection: 'column-reverse',
@@ -21,3 +23,5 @@ export default makeStyles((theme) => ({
     marginLeft: '15px',
   },
 }));
+
+export default useStyles;

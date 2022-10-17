@@ -1,6 +1,7 @@
-import { makeStyles } from '@material-ui/core/styles';
+/* import { makeStyles } from '@material-ui/core/styles'; */
+import { makeStyles } from 'tss-react/mui';
 
-export default makeStyles((theme) => ({
+const useStyles = makeStyles() ((theme) => ({
   appBarSearch: {
     borderRadius: 4,
     marginBottom: '1rem',
@@ -18,3 +19,5 @@ export default makeStyles((theme) => ({
     },
   },
 }));
+
+export default useStyles;

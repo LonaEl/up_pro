@@ -1,7 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
+/* import { makeStyles } from '@material-ui/core/styles'; */
+import { deepPurple } from '@mui/material/colors';
 
-export default makeStyles((theme) => ({
+
+import { makeStyles } from 'tss-react/mui';
+const useStyles = makeStyles()((theme) => ({
   appBar: {
     borderRadius: 15,
     margin: '30px 0',
@@ -60,3 +62,5 @@ export default makeStyles((theme) => ({
     backgroundColor: deepPurple[500],
   },
 }));
+
+export default useStyles;

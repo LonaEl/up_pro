@@ -1,7 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { deepPurple } from '@material-ui/core/colors';
+/* import { makeStyles } from '@material-ui/core/styles'; */
+import { deepPurple } from '@mui/material/colors';
+import { makeStyles } from 'tss-react/mui';
 
-export default makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   mainContainer: {
     borderRadius: 15,
     margin: '30px 0',
@@ -67,3 +68,5 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
   },
 }));
+
+export default useStyles;

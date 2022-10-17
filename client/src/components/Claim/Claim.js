@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-//import Axios from 'axios';
-import { TextField, Button, Typography, Paper} from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Typography  from '@mui/material/Typography';
+import Paper  from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { claim } from '../../actions/claim';
 
 const Claim = () => {
@@ -10,7 +12,7 @@ const Claim = () => {
     firstName: '', lastName: '', email: '', amount: '', bankName: '', accountNumber: '', typeOfAccount: ''
   });
 const dispatch = useDispatch();
-const history = useHistory();
+const navigate = useNavigate();
 
 
 const clear = () => {

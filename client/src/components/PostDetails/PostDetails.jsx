@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
+import  Paper from '@mui/material/Paper';
+import  Typography from '@mui/material/Typography';
+import  CircularProgress from '@mui/material/CircularProgress';
+import  Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
@@ -12,8 +15,8 @@ import useStyles from './styles';
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const classes = useStyles();
+  const navigate = useNavigate();
+  const { classes } = useStyles();
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,7 +31,7 @@ const Post = () => {
 
   if (!post) return null;
 
-  const openPost = (_id) => history.push(`/posts/${_id}`);
+  const openPost = (_id) => navigate(`/posts/${_id}`);
 
   if (isLoading) {
     return (
@@ -80,17 +83,11 @@ const Post = () => {
         </div>
       </div>
 
-
-  <Pdf />
+<Pdf />
 
       {!!recommendedPosts.length && (
         <div className={classes.section}>
-
-
-
-
-
-          <Typography gutterBottom variant="h5">You might also like:</Typography>
+<Typography gutterBottom variant="h5">You might also like:</Typography>
           <Divider />
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (

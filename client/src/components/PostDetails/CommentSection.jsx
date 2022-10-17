@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Typography, TextField, Button } from '@material-ui/core/';
+import Typography  from '@mui/material/Typography';
+import TextField  from '@mui/material/TextField';
+import Button  from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 
 import { commentPost } from '../../actions/posts';
@@ -10,7 +12,7 @@ const CommentSection = ({ post }) => {
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
   const [comments, setComments] = useState(post?.comments);
-  const classes = useStyles();
+  const { classes }  = useStyles();
   const commentsRef = useRef();
 
   const handleComment = async () => {
