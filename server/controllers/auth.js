@@ -21,8 +21,7 @@ export const login = async (req, res, next) => {
     if (!oldUser) {
       return next(new ErrorResponse("incorrect password or email address", 401));
     };
-  //  console.log(oldUser);
-
+  
    const isMatch = await bcrypt.compare(password, oldUser.password )
     if (!isMatch) {
       return next(new ErrorResponse("Incorrect password or email address", 401));

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./RegisterScreen.css";
 
-const RegisterScreen = ({ history }) => {
+const RegisterScreen = () => {
   const [lastname, setLastname] = useState("");
   const [firstname, setFirstname] = useState("");
   const [username, setUsername] = useState("");
@@ -11,16 +12,11 @@ const RegisterScreen = ({ history }) => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const registerHandler = async (e) => {
     e.preventDefault();
 
-    /* const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
- */
     if (password !== confirmpassword) {
       setPassword("");
       setConfirmPassword("");
@@ -29,19 +25,6 @@ const RegisterScreen = ({ history }) => {
       }, 5000);
       return setError("Passwords do not match, let's try again");
     }
-
-   /*  try {
-      const data = await axios.post(
-        "/api/auth/register",
-        { lastname,
-          lastname,
-          username,
-          email,
-          password,
-        },
-        config
-      );
- */
 
       try {
         const { data } = await axios.post(
@@ -52,16 +35,11 @@ const RegisterScreen = ({ history }) => {
             email,
             password
           },
-        /*   config */
         );
 
+localStorage.setItem('profile', JSON.stringify(data))
 
-
-     /*  localStorage.setItem("authToken", data.token);
- */
-      localStorage.setItem('profile', JSON.stringify(data))
-
-      history.push("/posts");
+      navigate("/login");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {

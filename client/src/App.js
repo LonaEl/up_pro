@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/posts/:id" exact element={ <PostDetails />} />
           <Route path='/tags/:name' exact  element={ <CreatorOrTag />} />
           <Route path='/creators/:name' exact element={ <CreatorOrTag />} />
-          <Route path="/login" exact element={() => (!user ? <LoginScreen /> : <Navigate to="/posts" replace={true}/>)} />
+          <Route path="/login" exact element={ (!user ? <LoginScreen /> : <Navigate to="/posts" replace={true}/>)  } />
           <Route path="/claim" exact element={ <Claim />} />
           <Route path="/termsandconditions" exact element={ <Terms />} />
           <Route exact path="/register" element={ <RegisterScreen />} />

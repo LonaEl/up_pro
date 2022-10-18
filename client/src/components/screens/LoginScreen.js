@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./LoginScreen.css";
 
-const LoginScreen = ({ history }) => {
+const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+  
+
   useEffect(() => {
-    if (localStorage.getItem("authToken")) {
-      history.push("/");
+    if (localStorage.getItem("profile")) {
+      navigate("/");
     }
-  }, [history]);
+  }, [navigate]);
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -32,7 +36,7 @@ const LoginScreen = ({ history }) => {
 
       localStorage.setItem('profile', JSON.stringify(data))
 
-      history.push("/");
+      navigate("/");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
