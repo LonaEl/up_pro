@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema({
     likes: { type: [String], default: [] },
     comments: { type: [String], default: [] },
     rates: {
-        type: [Number],
+        type: Number,
         min: 0,
         max: 5,
     },

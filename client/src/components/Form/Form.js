@@ -8,8 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import FileBase from 'react-file-base64';
 import { Link, useNavigate } from 'react-router-dom';
-
-
 import { createPost, updatePost } from '../../actions/posts';
 import useStyles from './styles';
 

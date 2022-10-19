@@ -9,7 +9,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
-import HoverRating from '../Rating/hoverRating';
+import Js from '../Rating/Js';
+//import HoverRating from '../Rating/hoverRating';
 import Pdf from '../Pdf/Pdf';
 import useStyles from './styles';
 
@@ -73,7 +74,7 @@ const Post = () => {
 
 
           <CommentSection post={post} />
-          <HoverRating post={post} />
+          <Js post={post} />
           
  <Divider style={{ margin: '20px 0' }} />
         </div>
