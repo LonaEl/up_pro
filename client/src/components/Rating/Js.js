@@ -18,6 +18,10 @@ const user = JSON.parse(localStorage.getItem('profile'));
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+
+    const newRate = {
+      rates: rate,
+    };
     const newRates =  await dispatch(ratePost(`${user?.result?.username}: ${rate}`, post._id));
 
     setRate(0);
