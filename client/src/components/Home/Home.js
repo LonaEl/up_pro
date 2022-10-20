@@ -8,10 +8,7 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-/* import ChipInput from 'material-ui-chip-input'; */
-
-import Chip from '@mui/material/Chip';
-
+import { MuiChipsInput } from 'mui-chips-input';
 import { getPostsBySearch } from '../../actions/posts';
 
 import Posts from '../Posts/Posts';
@@ -27,6 +24,8 @@ const Home = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
   const searchQuery = query.get('searchQuery');
+
+ 
 
   const [currentId, setCurrentId] = useState(0);
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const Home = () => {
     if (e.keyCode === 13) {
       searchPost();
     }
-  }; 
+  };  
 
   const handleAddChip = (tag) => setTags([...tags, tag]);
 
@@ -77,19 +76,18 @@ const Home = () => {
               value={search} 
               onChange={(e) => setSearch(e.target.value)} />
               
-              <Chip
+              <MuiChipsInput
                 style={{ margin: '10px 0' }}
                 value={tags}
-                onAdd={(chip) => handleAddChip(chip)}
-                onDelete={(chip) => handleDeleteChip(chip)}
-                label="Search Tags"
+                onAddChip={handleAddChip}
+                onDeleteChip={handleDeleteChip}
+                label="Search by tag"
                 variant="outlined"
-              />
-
-
+              /> 
 
               <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary">Search</Button>
-            </AppBar>
+
+        </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             {(
               !searchQuery && !tags.length) && (
