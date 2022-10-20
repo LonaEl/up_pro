@@ -6,11 +6,9 @@ import  Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
-import Js from '../Rating/Js';
-//import HoverRating from '../Rating/hoverRating';
+import Rating from '../Rating/Rating';
 import Pdf from '../Pdf/Pdf';
 import useStyles from './styles';
 
@@ -50,17 +48,7 @@ const Post = () => {
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">{post.title}</Typography>
-
-
-
-
-
-<Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> 
-
-
-
-
-
+          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> 
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
           <Typography variant="h6">
             Created by:
@@ -71,10 +59,8 @@ const Post = () => {
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }} />
           <Divider style={{ margin: '20px 0' }} />
-
-
-          <CommentSection post={post} />
-          <Js post={post} />
+         <CommentSection post={post} />
+          <Rating post={post} />
           
  <Divider style={{ margin: '20px 0' }} />
         </div>

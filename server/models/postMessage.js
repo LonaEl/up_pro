@@ -10,7 +10,7 @@ const postSchema = mongoose.Schema({
     //likeCount: {type: Number, default:0}
     likes: { type: [String], default: [] },
     comments: { type: [String], default: [] },
-    rates: { type: Number,  min: 0, max: 5, },
+    rates: { type: [String],  min: 0, max: 5, },
     createdAt: {
         type: Date,
         default: new Date(),
