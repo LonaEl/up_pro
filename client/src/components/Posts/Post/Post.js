@@ -42,15 +42,13 @@ const Post = ({ post, setCurrentId }) => {
 
   const Likes = () => {
     if (likes.length > 0) {
-      return likes.find((like) => like === userId)
-        ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }</>
-        ) : (
-          <><ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Likes' : 'Likes'}</>
+      return likes.find((like) => like === userId) ? ( <> <ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` } </> ) : (
+          <>
+          <ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Likes' : 'Likes'}
+          </>
         );
     }
-
-    return <><ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;Like</>;
+return <><ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;Like</>; 
   };
 
 const openPost = (e) => {

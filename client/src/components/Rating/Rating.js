@@ -88,23 +88,29 @@ const Rating = ({ post }) => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const dispatch = useDispatch();
-  const [star, setStar] = useState(post?.star);
-  const starRef = useRef();
+  const [rates, setRates] = useState(post?.rates);
+  const rateRef = useRef();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const newStar =  await dispatch(ratePost(`${user?.result?.username}: ${rating}`, post._id));
+    const newRate =  await dispatch(ratePost(`${user?.result?.username}: ${rating}`, post._id));
     
-    setStar(newStar);
-    starRef.current.scrollIntoView({ behavior: 'smooth' });
+    setRates(newRate);
+    rateRef.current.scrollIntoView({ behavior: 'smooth' });
   
   };
+
+  const Stars = () => {
+    if (rates.length > 0) {
+       return rates.find((rate) => rate);
+    }
+  }; 
 
   return (
     <div>
       <form onSubmit={handleSubmit} >
       <label>Ratings</label>
-      {[...Array(5)].map((star, i)=>{
+     {[...Array(5)].map((rate, i)=>{
          const ratingValue = i + 1;
          return (
           <label>
@@ -115,14 +121,17 @@ const Rating = ({ post }) => {
             onClick={() => setRating(ratingValue)} 
         
             />
-            <FaStar color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+            <FaStar
+            color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
             size={20}
             onMouseEnter={() => setHover(ratingValue)}
             onMouseLeave={() => setHover(null)}
-   />
-          </label>
+          />
+   </label>
          )
       })}
+      <div ref={rateRef} />
+      <Stars />
       <button type="submit">
         post rating
       </button>
@@ -131,4 +140,4 @@ const Rating = ({ post }) => {
   )
 };
 
-export default Rating;
+export default Rating; 

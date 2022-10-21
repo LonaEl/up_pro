@@ -23,8 +23,7 @@ const RegisterScreen = () => {
       setTimeout(() => {
         setError("");
       }, 5000);
-      return setError("Passwords do not match, let's try again");
-    }
+      return setError("Passwords entered do not match, try gain") }
 
       try {
         const { data } = await axios.post(
