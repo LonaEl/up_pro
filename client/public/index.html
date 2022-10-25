@@ -8,18 +8,39 @@
     <link rel="icon" type="image/png" href="./memories.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
-  <!--   <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-/>
-<style>
-  * {
-
-  } -->
+  
 </style>
     <title>Wits app</title>
   </head>
   <body>
-    <div id="root"></div>
+<div id="root"></div>
+<script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+<button id="checkout-button">Unlock</button>
+<script>
+  var yoco = new window.YocoSDK({
+    publicKey: 'pk_test_ad8c1ea4BOjD22ec3534',
+  });
+  var checkoutButton = document.querySelector('#checkout-button');
+  checkoutButton.addEventListener('click', function () {
+    yoco.showPopup({
+      amountInCents: 2799,
+      currency: 'ZAR',
+      name: 'Your Store or Product',
+      description: 'Awesome description',
+      callback: function (result) {
+        // This function returns a token that your server can use to capture a payment
+        if (result.error) {
+          const errorMessage = result.error.message;
+          alert("error occured: " + errorMessage);
+        } else {
+          alert("card successfully tokenised: " + result.id);
+        }
+        // In a real integration - you would now pass this chargeToken back to your
+        // server along with the order/basket that the customer has purchased.
+      }
+    })
+  });
+</script>
+
   </body>
 </html>
