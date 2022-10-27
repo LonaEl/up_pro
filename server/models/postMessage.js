@@ -11,6 +11,7 @@ const postSchema = mongoose.Schema({
     likes: { type: [String], default: [] },
     comments: { type: [String], default: [] },
     rates: { type: [String],  min: 0, max: 5, },
+    price: {type: String, required: true},
     createdAt: {
         type: Date,
         default: new Date(),
@@ -20,6 +21,3 @@ const postSchema = mongoose.Schema({
 var PostMessage = mongoose.model('PostMessage', postSchema);
 
 export default PostMessage;
-
-/* mongodb will create a "postmessages" collection,
-as per the rule of plural, lowercased version of your model name */
