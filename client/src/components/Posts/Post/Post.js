@@ -29,7 +29,38 @@ const Post = ({ post, setCurrentId }) => {
   const userId = user?.result.googleId || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
 
+
+
+  const payNow = () => {
  
+    var yoco = new window.YocoSDK({
+      publicKey: 'pk_test_ed3c54a6gOol69qa7f45',
+    });
+    var checkoutButton = document.querySelector('#checkout-button');
+    checkoutButton.addEventListener('click', function ({ price }) {
+      yoco.showPopup({
+        amountInCents: {price} ,
+        currency: 'ZAR',
+        name: 'Your Store or Product',
+        description: 'Awesome description',
+        callback: function (result) {
+          // This function returns a token that your server can use to capture a payment
+          if (result.error) {
+            const errorMessage = result.error.message;
+            alert("error occured: " + errorMessage);
+          } else {
+            alert("card successfully tokenised: " + result.id);
+          }
+          // In a real integration - you would now pass this chargeToken back to your
+          // server along with the order/basket that the customer has purchased.
+        }
+      })
+    });
+   
+  };
+
+
+
     const handleLike = async () => {
     dispatch(likePost(post._id));
 
@@ -99,8 +130,9 @@ return (
      <Typography>{post.price}</Typography>
        <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
-          <Likes />
+        {/* <Likes /> */}
         </Button>
+        <button id="checkout-button" onClick={payNow} >Pay now</button>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon fontSize="small" /> &nbsp; Delete
@@ -109,6 +141,6 @@ return (
       </CardActions>
     </Card>
   );
-};
+}
 
 export default Post;

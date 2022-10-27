@@ -4,10 +4,11 @@ import axios from 'axios';
 const SECRET_KEY = 'sk_test_0c914441mp1Wbb0ab9a47e0b129a'
 
 axios.post(
-  'https://online.yoco.com/v1/charges/',
-  {
+  'https://online.yoco.com/v1/charges/'
+  const { price  } = req.body;
+{
     token: 'tok_test_DjaqoUgmzwYkwesr3euMxyUV4g',
-    amountInCents: 2799,
+    amountInCents: price,
     currency: 'ZAR',
   },
   {

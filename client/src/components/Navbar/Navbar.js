@@ -43,7 +43,7 @@ const Navbar = () => {
       <Link to="/" className={classes.brandContainer}>
       <Typography variant='h2' >Wits</Typography>
       </Link>
-      <Toolbar className={classes.toolbar}>
+     <Toolbar className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.username} src={user?.result.imageUrl}>{user?.result.username.charAt(0)}</Avatar>
