@@ -12,7 +12,6 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import { getPrice } from '../../../actions/posts';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
@@ -55,7 +54,7 @@ const Post = ({ post, setCurrentId }) => {
     function () {
       yoco.showPopup({
 
-        amountInCents: getPrice,
+        amountInCents: 2345,
         currency: 'ZAR',
         name: 'Your Store ',
         description: 'Awesome description',

@@ -55,22 +55,18 @@ const Form = ({ currentId, setCurrentId }) => {
     );
   }
 
-/*   const switchMode = () => {
-     setChecked((prevChecked => !prevChecked));
-  };
- */
+const element = <Typography variant='h8'>I agree to the <Box component={Link} to="/termsandconditions">terms and conditions</Box> </Typography>
 
-  //const handleAddChip = (tag) => {
-   // setPostData({ ...postData, tags: [...postData.tags, tag] });
-  //};
-
- // const handleDeleteChip = (chipToDelete) => {
-   // setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
-  //};
-
- const element = <Typography variant='h8'>I agree to the <Box component={Link} to="/termsandconditions">terms and conditions</Box> </Typography>
  const handleChange = (event) => {
   setChecked(event.target.checked);
+};
+
+const formChange = (e) => {
+setPostData(prevPostData => {
+  return {
+    ...prevPostData, [e.target.name]: e.target.value
+  }
+})
 };
 
 const disabled = !checked
@@ -87,7 +83,7 @@ const disabled = !checked
         label="Title" 
         fullWidth 
         value={postData.title} 
-        onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+        onChange={formChange}
          />
         
         <TextField 
@@ -98,7 +94,7 @@ const disabled = !checked
         multiline 
         minRows={4} 
         value={postData.message} 
-        onChange={(e) => setPostData({ ...postData, message: e.target.value })} 
+        onChange={formChange} 
         />
         <div style={{ padding: '5px 0', width: '94%' }}>
         
@@ -108,19 +104,17 @@ const disabled = !checked
             label="Tags"
             fullWidth
            value={postData.tags}
-           // onAdd={(chip) => handleAddChip(chip)}
-           // onDelete={(chip) => handleDeleteChip(chip)}
-            onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} 
+          onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} 
               />
         </div>
         <TextField 
-        name="Price" 
+        name="price" 
         variant="outlined" 
         label="Price" 
         id="price"
         fullWidth 
         value={postData.price} 
-        onChange={(e) => setPostData({ ...postData, price: e.target.value })}
+        onChange={formChange}
          />
        <div className={classes.fileInput}>
           <FileBase type="file" 

@@ -11,6 +11,7 @@ import LoginScreen from './components/screens/LoginScreen';
 import RegisterScreen from './components/screens/RegisterScreen';
 import ForgotPasswordScreen from './components/screens/ForgotPasswordScree';
 import ResetPasswordScreen from './components/screens/ResetPasswordScreen';
+import Upload from './components/Upload';
 
 
 
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route path="/"  element={<Navigate to="/posts" replace={true}/> } />
           <Route path="/posts" exact element={ <Home />} />
+          <Route path="/uploading" exact element={ <Upload />} />
           <Route path="/posts/search" exact element={<Home />} />
           <Route path="/posts/:id" exact element={ <PostDetails />} />
           <Route path='/tags/:name' exact  element={ <CreatorOrTag />} />

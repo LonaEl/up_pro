@@ -41,11 +41,18 @@ export const register = async (req, res, next) => {
   const {username, email, password, firstname, lastname } = req.body;
 
   try {
+     const oldUsername = await User.findOne({ username })
+    const oldEmail = await User.findOne({ email });
 
-    const oldUser = await User.findOne({ email });
-    if (oldUser) return res.status(400).json({ message: "User already exists" });
+    if (oldEmail) {
+      return next(new ErrorResponse("Email address already exists. Please login", 401));
+    }
+    if (oldUsername) {
+      return next (new ErrorResponse("Username already exists. Please choose another one", 401))
+    }
+
     const salt = await bcrypt.genSalt(12);
-    const hashedPassword = await bcrypt.hash(password, salt);
+     const hashedPassword = await bcrypt.hash(password, salt);
     const result = await User.create({ username, email, password: hashedPassword, firstname, lastname });
     const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
 
