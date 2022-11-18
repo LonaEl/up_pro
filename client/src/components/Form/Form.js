@@ -117,6 +117,7 @@ const disabled = !checked
         name="Price" 
         variant="outlined" 
         label="Price" 
+        id="price"
         fullWidth 
         value={postData.price} 
         onChange={(e) => setPostData({ ...postData, price: e.target.value })}

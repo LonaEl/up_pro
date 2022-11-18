@@ -60,6 +60,18 @@ export const getPost = async (req, res) => {
     }
 }
 
+export const getPrice = async (req, res) => { 
+    const { price } = req.query;
+
+    try {
+        const price = await PostMessage.find({ price });
+        
+        res.json({ data: price });
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const createPost = async (req, res) => {
     const post = req.body;
 

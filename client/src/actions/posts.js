@@ -1,4 +1,4 @@
-import { START_LOADING, END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, RATE,  COMMENT, FETCH_BY_CREATOR } from '../constants/actionTypes';
+import { START_LOADING, END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, RATE,  COMMENT, FETCH_BY_CREATOR, FETCH_PRICE } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const getPost = (id) => async (dispatch) => {
@@ -12,6 +12,19 @@ export const getPost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getPrice = (price) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+
+    const { data } = await api.fetchPrice(price);
+
+    dispatch({ type: FETCH_PRICE, payload: { price: data } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 export const getPosts = (page) => async (dispatch) => {
   try {

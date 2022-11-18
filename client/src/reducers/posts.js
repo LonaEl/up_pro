@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_BY_CREATOR, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, COMMENT, RATE } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_BY_CREATOR, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, COMMENT, RATE, FETCH_PRICE } from '../constants/actionTypes';
 
 export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
@@ -18,6 +18,8 @@ export default (state = { isLoading: true, posts: [] }, action) => {
       return { ...state, posts: action.payload.data };
     case FETCH_POST:
       return { ...state, post: action.payload.post };
+      case FETCH_PRICE:
+      return { ...state, post: action.payload.data.price };
     case LIKE:
       return { ...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)) };
     case COMMENT:

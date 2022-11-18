@@ -10,6 +10,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+export const fetchPrice = (price) => API.get(`/posts/${price}`)
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 export const fetchPostsByCreator = (name) => API.get(`/posts/creator?name=${name}`);
@@ -21,16 +22,11 @@ export const rate = (value, id) => API.post(`/posts/${id}/ratePost`, { value });
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 
-/* export const signIn = (formData) => API.post('/user/signin', formData);
-export const signUp = (formData) => API.post('/user/signup', formData);
- */
-//export const fetchClaims = () => API.get();
+
+
 export const claim = (newClaim) => API.post('/claim', newClaim);
 
 /*
-
-import axios from 'axios'
-
 const url = 'http://localhost:5000'
 export const function = () => axios.get(url);   will get all the files in the url
  */

@@ -12,10 +12,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
+import { getPrice } from '../../../actions/posts';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
+
 
 import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles';
@@ -29,6 +32,16 @@ const Post = ({ post, setCurrentId }) => {
   const userId = user?.result.googleId || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
 
+  /* let price = function () {
+    return (
+      <>
+      {getPrice}
+      </>
+    )
+  }
+ */
+
+
 
 
   const payNow = () => {
@@ -37,11 +50,14 @@ const Post = ({ post, setCurrentId }) => {
       publicKey: 'pk_test_ed3c54a6gOol69qa7f45',
     });
     var checkoutButton = document.querySelector('#checkout-button');
-    checkoutButton.addEventListener('click', function ({ price }) {
+    checkoutButton.addEventListener('click',
+    
+    function () {
       yoco.showPopup({
-        amountInCents: {price} ,
+
+        amountInCents: getPrice,
         currency: 'ZAR',
-        name: 'Your Store or Product',
+        name: 'Your Store ',
         description: 'Awesome description',
         callback: function (result) {
           // This function returns a token that your server can use to capture a payment
