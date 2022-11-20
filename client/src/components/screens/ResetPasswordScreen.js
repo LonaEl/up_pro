@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./ResetPasswordScreen.css";
 
 const ResetPasswordScreen = ({ history, match }) => {
+  let { resetToken } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,12 +26,12 @@ const ResetPasswordScreen = ({ history, match }) => {
       setTimeout(() => {
         setError("");
       }, 5000);
-      return setError("Passwords don't match");
+      return setError("Passwords do not match");
     }
 
     try {
       const { data } = await axios.put(
-        `/api/auth/passwordreset/${match.params.resetToken}`,
+        `/api/auth/passwordreset/${resetToken}`,
         {
           password,
         },

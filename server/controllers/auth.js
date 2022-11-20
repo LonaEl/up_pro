@@ -54,7 +54,7 @@ export const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(12);
      const hashedPassword = await bcrypt.hash(password, salt);
     const result = await User.create({ username, email, password: hashedPassword, firstname, lastname });
-    const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE } );
+    const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE });
 
       res.status(201).json({result, token});
     
@@ -119,9 +119,9 @@ export const forgotPassword = async (req, res, next) => {
   }
 };
 
-// @desc    Reset User Password
+
 export const resetPassword = async (req, res, next) => {
-  // Compare token in URL params to hashed token
+
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.resetToken)
@@ -134,7 +134,7 @@ export const resetPassword = async (req, res, next) => {
     });
 
     if (!user) {
-      return next(new ErrorResponse("Invalid Token", 400));
+      return next(new ErrorResponse("Token is not valid", 400));
     }
 
     user.password = req.body.password;
@@ -146,7 +146,7 @@ export const resetPassword = async (req, res, next) => {
     res.status(201).json({
       success: true,
       data: "Password Updated Success",
-      token: user.getSignedJwtToken(),
+      token : jwt.sign(),
     });
   } catch (err) {
     next(err);

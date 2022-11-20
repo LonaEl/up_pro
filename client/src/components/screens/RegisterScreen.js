@@ -17,6 +17,13 @@ const RegisterScreen = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
 
+    //removed the config object
+    /* const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+ */
     if (password !== confirmpassword) {
       setPassword("");
       setConfirmPassword("");
@@ -25,6 +32,7 @@ const RegisterScreen = () => {
       }, 5000);
       return setError("Passwords entered do not match, try gain") }
 
+      //lastname and firstname not included
       try {
         const { data } = await axios.post(
           "/api/auth/register",
@@ -34,9 +42,11 @@ const RegisterScreen = () => {
             email,
             password
           },
+          //called the config object
         );
 
 localStorage.setItem('profile', JSON.stringify(data))
+//localStorage.setItem("authToken", data.token);
 
       navigate("/login");
     } catch (error) {
