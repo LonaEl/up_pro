@@ -6,44 +6,26 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
-import StarIcon from '@mui/icons-material/Star';
-
-
-import { likePost, deletePost } from '../../../actions/posts';
+import { deletePost } from '../../../actions/posts';
 import useStyles from './styles';
 
 const Post = ({ post, setCurrentId }) => {
+
+  const [ price ] = useState(parseFloat(post.price) * 100);
   const user = JSON.parse(localStorage.getItem('profile'));
-  const [likes, setLikes] = useState(post?.likes);
+  const [isBought, setIsBought] = useState(true)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { classes } = useStyles();
-  const userId = user?.result.googleId || user?.result?._id;
-  const hasLikedPost = post.likes.find((like) => like === userId);
 
-  /* let price = function () {
-    return (
-      <>
-      {getPrice}
-      </>
-    )
-  }
- */
-
-
-
-
-  const payNow = () => {
+  
+ 
+const pay = () => {
  
     var yoco = new window.YocoSDK({
       publicKey: 'pk_test_ed3c54a6gOol69qa7f45',
@@ -54,7 +36,7 @@ const Post = ({ post, setCurrentId }) => {
     function () {
       yoco.showPopup({
 
-        amountInCents: 2345,
+        amountInCents: price,
         currency: 'ZAR',
         name: 'Your Store ',
         description: 'Awesome description',
@@ -75,32 +57,17 @@ const Post = ({ post, setCurrentId }) => {
   };
 
 
+const Edit = (e) => {
+  e.stopPropagation();
+  setCurrentId(post._id);
+  navigate("/uploading")
+}
 
-    const handleLike = async () => {
-    dispatch(likePost(post._id));
-
-    if (hasLikedPost) {
-      setLikes(post.likes.filter((id) => id !== userId));
-    } else {
-      setLikes([...post.likes, userId]);
-    }
-  };
-
-  const Likes = () => {
-    if (likes.length > 0) {
-      return likes.find((like) => like === userId) ? ( <> <ThumbUpAltIcon fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` } </> ) : (
-          <>
-          <ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Likes' : 'Likes'}
-          </>
-        );
-    }
-return <><ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;Like</>; 
-  };
-
-const openPost = (e) => {
+ const openPost = (e) => {
     navigate(`/posts/${post._id}`);
   }; 
- 
+
+
 return (
     <Card className={classes.card} raised elevation={6}>
 
@@ -123,10 +90,7 @@ return (
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <div className={classes.overlay2} name="edit">
           <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentId(post._id);
-            }}
+            onClick={Edit}
             style={{ color: 'white' }}
             size="small"
           >
@@ -142,17 +106,26 @@ return (
           <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
         </CardContent>
       </ButtonBase>
-     <Typography>{post.price}</Typography>
+     <Typography>R{post.price}</Typography>
        <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
-        {/* <Likes /> */}
-        </Button>
-        <button id="checkout-button" onClick={payNow} >Pay now</button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
-            <DeleteIcon fontSize="small" /> &nbsp; Delete
-          </Button>
-        )}
+       
+        <button id="checkout-button" onClick={pay} >Unlock</button>
+
+
+  {
+  
+  (user?.result?._id === post?.creator) && (
+    <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+      <DeleteIcon fontSize="small" /> &nbsp; Delete
+    </Button>
+  )
+  }
+  
+
+
+ 
+
+      
       </CardActions>
     </Card>
   );

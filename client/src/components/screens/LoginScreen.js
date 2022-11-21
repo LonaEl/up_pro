@@ -21,17 +21,17 @@ const LoginScreen = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
 
-   /*  const config = {
+    const config = {
       header: {
         "Content-Type": "application/json",
       },
     };
- */
+ 
     try {
       const { data } = await axios.post(
         "/api/auth/login",
         { email, password },
-      /*   config */
+        config 
       );
 
       localStorage.setItem('profile', JSON.stringify(data))

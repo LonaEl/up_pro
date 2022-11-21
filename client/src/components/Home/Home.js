@@ -11,7 +11,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { MuiChipsInput } from 'mui-chips-input';
 import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
-import Form from '../Form/Form';
 import Pagination from '../Pagination';
 import useStyles from './styles';
 

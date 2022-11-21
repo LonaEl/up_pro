@@ -17,13 +17,13 @@ const RegisterScreen = () => {
   const registerHandler = async (e) => {
     e.preventDefault();
 
-    //removed the config object
-    /* const config = {
+    
+     const config = {
       header: {
         "Content-Type": "application/json",
       },
     };
- */
+ 
     if (password !== confirmpassword) {
       setPassword("");
       setConfirmPassword("");
@@ -42,7 +42,7 @@ const RegisterScreen = () => {
             email,
             password
           },
-          //called the config object
+           config 
         );
 
 localStorage.setItem('profile', JSON.stringify(data))
