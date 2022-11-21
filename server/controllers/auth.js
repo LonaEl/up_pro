@@ -5,7 +5,7 @@ import sendEmail from "../utils/sendEmail.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-// @desc    Login user
+//LOGIN
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -53,7 +53,10 @@ export const register = async (req, res, next) => {
 
     const salt = await bcrypt.genSalt(12);
      const hashedPassword = await bcrypt.hash(password, salt);
+
+
     const result = await User.create({ username, email, password: hashedPassword, firstname, lastname });
+
     const token = jwt.sign( { email: result.email, id: result._id }, process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE });
 
       res.status(201).json({result, token});
@@ -68,9 +71,9 @@ export const register = async (req, res, next) => {
 
 
 
-// @desc    Forgot Password Initialization
+//FORGOT PASSWORD
 export const forgotPassword = async (req, res, next) => {
-  // Send Email to email provided but first check if user exists
+  
   const { email } = req.body;
 
   try {
@@ -80,15 +83,14 @@ export const forgotPassword = async (req, res, next) => {
       return next(new ErrorResponse("Email address not found. Please try another email address or register.", 404));
     }
 
-    // Reset Token Gen and add to database hashed (private) version of token
+    // Reset Token Gen and add to database hashed version of token
     const resetToken = user.getResetPasswordToken();
-
+  //save the token to the database
     await user.save();
 
     // Create reset url to email to provided email
     const resetUrl = `http://localhost:3000/passwordreset/${resetToken}`;
 
-    // HTML Message
     const message = `
       <h1>You have requested a password reset</h1>
       <h4>If you did not request to reset your password, or you did it by mistake, simply ignore this email. Your old password will still work</h4>
@@ -119,13 +121,14 @@ export const forgotPassword = async (req, res, next) => {
   }
 };
 
-
+//RESET PASSWORD
 export const resetPassword = async (req, res, next) => {
 
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.resetToken)
     .digest("hex");
+
 
   try {
     const user = await User.findOne({
@@ -134,27 +137,30 @@ export const resetPassword = async (req, res, next) => {
     });
 
     if (!user) {
-      return next(new ErrorResponse("Token is not valid", 400));
+      return next(new ErrorResponse("Link not valid, please try again", 400));
     }
 
-    user.password = req.body.password;
+    
+    const salt = await bcrypt.genSalt(12);
+    
+//get the password from the body and hash it with salt and delete/undefine the resetPasswordToken and resetPasswordExpire token
+    const hashed = await bcrypt.hash(req.body.password, salt);
+    user.password = (hashed);
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
-    await user.save();
 
+    //saves to the database 
+     await user.save(); 
+
+
+    //the token must match the token sent to database when the forgot button was pressed
     res.status(201).json({
       success: true,
       data: "Password Updated Success",
-      token : jwt.sign(),
+      token : jwt.sign({ user }  , process.env.JWT_SECRET , { expiresIn: process.env.JWT_EXPIRE }),
     });
   } catch (err) {
     next(err);
   }
 };
-/* 
-export const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedJwtToken();
-  res.status(statusCode).json({ sucess: true, token, result});
-};
- */
