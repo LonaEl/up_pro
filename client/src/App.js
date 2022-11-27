@@ -25,17 +25,17 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/"  element={<Navigate to="/posts" replace={true}/> } />
-          <Route path="/posts" exact element={ <Home />} />
-          <Route path="/uploading" exact element={ <Upload />} />
+          <Route path="/posts" exact element={<Home />} />
+          <Route path="/uploading" exact element={<Upload />} />
           <Route path="/posts/search" exact element={<Home />} />
-          <Route path="/posts/:id" exact element={ <PostDetails />} />
-          <Route path='/tags/:name' exact  element={ <CreatorOrTag />} />
-          <Route path='/creators/:name' exact element={ <CreatorOrTag />} />
-          <Route path="/login" exact element={ (!user ? <LoginScreen /> : <Navigate to="/posts" replace={true}/>)  } />
-          <Route path="/claim" exact element={ <Claim />} />
-          <Route path="/termsandconditions" exact element={ <Terms />} />
-          <Route exact path="/register" element={ <RegisterScreen />} />
-          <Route exact path="/forgotpassword"  element={ <ForgotPasswordScreen />} />
+          <Route path="/posts/:id" exact element={<PostDetails />} />
+          <Route path='/tags/:name' exact  element={<CreatorOrTag />} />
+          <Route path='/creators/:name' exact element={<CreatorOrTag />} />
+          <Route path="/login" exact element={(!user ? <LoginScreen /> : <Navigate to="/posts" replace={true}/>)  } />
+          <Route path="/claim" exact element={<Claim />} />
+          <Route path="/termsandconditions" exact element={<Terms />} />
+          <Route exact path="/register" element={<RegisterScreen />} />
+          <Route exact path="/forgotpassword"  element={<ForgotPasswordScreen />} />
           <Route exact path="/passwordreset/:resetToken" element={ <ResetPasswordScreen />} />
        </Routes>
       </Container>
