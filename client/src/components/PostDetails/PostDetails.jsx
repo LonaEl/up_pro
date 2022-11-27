@@ -8,8 +8,6 @@ import moment from 'moment';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
-//import Lon from '../Rating/Lon';
-import Rating from '../Rating/Rating';
 import Pdf from '../Pdf/Pdf';
 import useStyles from './styles';
 
@@ -61,7 +59,7 @@ const Post = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Divider style={{ margin: '20px 0' }} />
          <CommentSection post={post} />
-          <Rating post={post} />
+        
           
  <Divider style={{ margin: '20px 0' }} />
         </div>

@@ -84,18 +84,6 @@ export const likePost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
-export const ratePost = (value, id) => async (dispatch) => {
-  try {
-    const { data } = await api.rate(value, id);
-
-    dispatch({ type: RATE, payload: data });
-
-    return data.rates;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 
 export const commentPost = (value, id) => async (dispatch) => {
   try {

@@ -133,17 +133,21 @@ export const commentPost = async (req, res) => {
 
     res.json(updatedPost);
 };
+
+
 export const ratePost = async (req, res) => {
     const { id } = req.params;
     const { value } = req.body;
-
-    const post = await PostMessage.findById(id);
-
-    post.rates.push(value);
-
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
-
-    res.json(updatedPost);
+    try {
+        const rate = await PostMessage.findById(id);
+        rate.rating.push(value);
+        const savedRate = await PostMessage.findByIdAndUpdate(id, rate, {new: true});
+        res.json(savedRate);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
 };
+
 
 export default router;
