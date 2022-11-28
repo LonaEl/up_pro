@@ -6,13 +6,13 @@ import  Divider from '@mui/material/Divider';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getPost, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch, getPost } from '../../actions/posts';
 import CommentSection from './CommentSection';
 import Pdf from '../Pdf/Pdf';
 import useStyles from './styles';
 
 const Post = () => {
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  const { post, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { classes } = useStyles();
@@ -40,9 +40,7 @@ const Post = () => {
     );
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
-
-  return (
+return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
@@ -67,27 +65,8 @@ const Post = () => {
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div> */}
       </div>
-
-<Pdf />
-
-   {/*     {!!recommendedPosts.length && (
-        <div className={classes.section}>
-<Typography gutterBottom variant="h5">You might also like:</Typography>
-          <Divider />
-          <div className={classes.recommendedPosts}>
-            {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} alt='' width="200px" />
-              </div>
-            ))}
-          </div>
-        </div>
-      )} */}
-    </Paper>
+     <Pdf />
+</Paper>
   );
 }; 
 

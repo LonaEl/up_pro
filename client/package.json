@@ -8,6 +8,7 @@
         "@emotion/styled": "^11.10.4",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.9",
+        "@paystack/inline-js": "^2.12.6",
         "@reduxjs/toolkit": "^1.8.6",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.2.1",
